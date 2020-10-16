@@ -28,6 +28,7 @@ configpath = ""
 logpath = configpath
 sqlconfigpath = configpath
 sqlconfigname = "dbconn.ini"
+githublink = ""
 
 #Look in a few possible locations for the main config file. Use the first one found.
 defaults = []
@@ -106,7 +107,11 @@ if config.has_section(sec):
 
     #version
     if config.has_option(sec,  "botversion"):
-        botversion = config.get(sec,  "botversion")
+        botversion = config.get(sec, "botversion")
+
+    #link to source
+    if config.has_option(sec, "githublink"):
+        githublink = config.get(sec, "githublink")
 
     #subreddit to check
     if config.has_option(sec, "subreddits"):
@@ -159,7 +164,7 @@ template = "%SALUTATION% %BODY% %FOOTER%"
 sep = "\n \n --- \n \n "
 timezone = "GMT"
 salutation = "Posted by /u/%OP%.  Archived by {} at %ReplyTime% {}.".format(botname,  timezone) + sep
-footer_body = "{} version {}. | [Contact Bot Maintainer](/u/{}) ".format(botname, botversion, maintainerdm)
+footer_body = "{} version {}. | [GitHub]({}) | [Contact Bot Maintainer](/u/{}) ".format(botname, botversion, githublink, maintainerdm)
 footer = sep + footer_body
 maxQuotedLen = maxCommentLen - len(salutation + "  " + footer)
 logging.debug("maxQuotedLen={}".format(maxQuotedLen))
